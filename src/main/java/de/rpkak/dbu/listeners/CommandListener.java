@@ -70,7 +70,7 @@ public class CommandListener extends ListenerAdapter {
 									event.getChannel().sendTyping().queue(Void -> {
 										Utils.tryCatch(
 												() -> command.onCommand(event, splited.subList(2, splited.size())),
-												event.getChannel(), event.getGuild().getOwner().getUser(),
+												event.getChannel(),
 												"Error while handling the command \"" + content + "\".",
 												event.getGuild());
 									});

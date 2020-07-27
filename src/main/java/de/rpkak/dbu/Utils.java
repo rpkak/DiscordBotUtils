@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.PermissionException;
 import net.dv8tion.jda.internal.utils.JDALogger;
@@ -140,8 +139,7 @@ public class Utils {
 		void run() throws Throwable;
 	}
 
-	public static void tryCatch(RunnableWithThrowable action, MessageChannel channel, User user, String onExit,
-			Guild guild) {
+	public static void tryCatch(RunnableWithThrowable action, MessageChannel channel, String onExit, Guild guild) {
 		try {
 			if (catchPermissionExceptions) {
 				try {
@@ -156,15 +154,7 @@ public class Utils {
 
 						channel.sendMessage(builder.build()).queue();
 					} catch (PermissionException e2) {
-						EmbedBuilder builder2 = new EmbedBuilder();
-						builder2.setAuthor("I can't write");
-						builder2.setDescription("Please give me the Permission to write on " + guild.getName() + " / "
-								+ channel.getName() + ".");
-						user.openPrivateChannel().queue(privateChannel -> {
-							privateChannel.sendMessage(builder.build()).queue();
-							privateChannel.sendMessage(builder2.build()).queue();
-						});
-						LOG.info("catchInnerPermissionExceptions", e);
+						LOG.info("catchInnerPermissionExceptions", e2);
 					}
 					LOG.info("catchPermissionExceptions", e);
 				}
