@@ -113,7 +113,6 @@ public class HelpCommand extends Command {
 			} else {
 				EmbedBuilder builder = new EmbedBuilder();
 				builder.setDescription(getPrefixes());
-				builder.addField("General Information", generalInformation, false);
 				for (Command command : commands) {
 					addCommandToEmbed(command, builder);
 				}
